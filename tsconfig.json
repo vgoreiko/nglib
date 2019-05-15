@@ -24,9 +24,6 @@
       ],
       "ui-components/*": [
         "dist/ui-components/*"
-      ],
-      "@ui-components": [
-        ""
       ]
     }
   }

@@ -5,11 +5,13 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build-report": "ng build --stats-json",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build-lib": "ng build ui-components",
-    "build-lib-watch": "ng build ui-components --watch"
+    "build-lib-watch": "ng build ui-components --watch",
+    "bundle-report": "webpack-bundle-analyzer dist/facade-application/stats.json"
   },
   "private": true,
   "dependencies": {
@@ -32,9 +34,9 @@
     "@angular/cli": "~7.3.9",
     "@angular/compiler-cli": "~7.2.0",
     "@angular/language-service": "~7.2.0",
-    "@types/node": "~8.9.4",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~8.9.4",
     "codelyzer": "~4.5.0",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
@@ -49,6 +51,7 @@
     "tsickle": ">=0.34.0",
     "tslib": "^1.9.0",
     "tslint": "~5.11.0",
-    "typescript": "~3.2.2"
+    "typescript": "~3.2.2",
+    "webpack-bundle-analyzer": "^3.3.2"
   }
 }
