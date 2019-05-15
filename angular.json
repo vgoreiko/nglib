@@ -107,8 +107,8 @@
       }
     },
     "ui-components": {
-      "root": "projects/ui-components",
-      "sourceRoot": "projects/ui-components/src",
+      "root": "libraries/ui-components",
+      "sourceRoot": "libraries/ui-components/src",
       "projectType": "library",
       "prefix": "lib",
       "architect": {
@@ -122,17 +122,17 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ui-components/src/test.ts",
-            "tsConfig": "projects/ui-components/tsconfig.spec.json",
-            "karmaConfig": "projects/ui-components/karma.conf.js"
+            "main": "libraries/ui-components/src/test.ts",
+            "tsConfig": "libraries/ui-components/tsconfig.spec.json",
+            "karmaConfig": "libraries/ui-components/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/ui-components/tsconfig.lib.json",
-              "projects/ui-components/tsconfig.spec.json"
+              "libraries/ui-components/tsconfig.lib.json",
+              "libraries/ui-components/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
