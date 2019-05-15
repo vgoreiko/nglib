@@ -107,7 +107,7 @@
       }
     },
     "ui-components": {
-      "root": "libraries/ui-components",
+      "root": "./libraries/ui-components",
       "sourceRoot": "libraries/ui-components/src",
       "projectType": "library",
       "prefix": "lib",
@@ -115,8 +115,8 @@
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/ui-components/tsconfig.lib.json",
-            "project": "projects/ui-components/ng-package.json"
+            "tsConfig": "libraries/ui-components/tsconfig.lib.json",
+            "project": "libraries/ui-components/ng-package.json"
           }
         },
         "test": {

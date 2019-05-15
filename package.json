@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build-lib": "ng build ui-components",
+    "build-lib-watch": "ng build ui-components --watch"
   },
   "private": true,
   "dependencies": {
