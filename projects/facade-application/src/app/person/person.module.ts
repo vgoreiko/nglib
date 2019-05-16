@@ -15,7 +15,10 @@ import {UiComponentsModule} from '../../../../../libraries/ui-components/src/lib
     ]),
     UiComponentsModule,
   ],
-  declarations: [PersonComponent]
+  declarations: [PersonComponent],
+  entryComponents:[
+    PersonComponent,
+  ]
 })
 export class PersonModule {
 }
