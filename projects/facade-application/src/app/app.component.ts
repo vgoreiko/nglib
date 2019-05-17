@@ -27,7 +27,7 @@ export class AppComponent {
         const compFactory = moduleRef
           .componentFactoryResolver
           .resolveComponentFactory(PersonComponent);
-        this.viewRef.createComponent(compFactory, 0, this.injector);
+        this.viewRef.createComponent(compFactory);
       })
       .catch(e => console.error(e));
   }
