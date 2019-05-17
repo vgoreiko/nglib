@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {PersonComponent} from './person.component';
-import {UiComponentsModule} from '../../../../../libraries/ui-components/src/lib/ui-components.module';
+import {UiComponentsModule} from 'ui-components';
 
 @NgModule({
   imports: [
@@ -16,7 +16,7 @@ import {UiComponentsModule} from '../../../../../libraries/ui-components/src/lib
     UiComponentsModule,
   ],
   declarations: [PersonComponent],
-  entryComponents:[
+  entryComponents: [
     PersonComponent,
   ]
 })

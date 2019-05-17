@@ -13,20 +13,21 @@ import {PersonComponent} from './person/person.component';
   styles: []
 })
 export class AppComponent {
-  @ViewChild('container', { read: ViewContainerRef }) viewRef: ViewContainerRef;
+  @ViewChild('container', {read: ViewContainerRef}) viewRef: ViewContainerRef;
+
   constructor(private systemJsLoader: SystemJsNgModuleLoader,
-              private injector:   Injector,) {
+              private injector: Injector) {
   }
 
   loadModule() {
-
+    this.viewRef.clear();
     this.systemJsLoader.load('./person/person.module#PersonModule')
       .then((moduleFactory: NgModuleFactory<any>) => {
         const moduleRef = moduleFactory.create(this.injector);
         const compFactory = moduleRef
           .componentFactoryResolver
           .resolveComponentFactory(PersonComponent);
-        this.viewRef.createComponent(compFactory)
+        this.viewRef.createComponent(compFactory, 0, this.injector);
       })
       .catch(e => console.error(e));
   }
