@@ -22,3 +22,4 @@ import {UiComponentsModule} from 'ui-components';
 })
 export class PersonModule {
 }
+

@@ -7,7 +7,7 @@ import {environment} from '../environments/environment';
   template: `
     <h1>Content</h1>
     <p>
-      <a routerLink="./">Home</a>
+      <a routerLink="/">Home</a>
     </p>
     <p>
       <a routerLink="/person">Person</a>
@@ -49,13 +49,15 @@ export class AppComponent {
       return new SystemJsNgModuleLoader(new Compiler(),
         {
           factoryPathPrefix: '',
-          factoryPathSuffix: '-ngfactory'
+          factoryPathSuffix: ''
         })
     }
 
   }
 
   private getModulePath(environment: {production: boolean}){
-    return environment.production ? './person-person-module' : './+person/person.module#PersonModule'
+    return environment.production
+      ? './+person/person.module.ngfactory#PersonModule'
+      : './+person/person.module#PersonModule'
   }
 }
