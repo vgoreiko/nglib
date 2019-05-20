@@ -1,11 +1,17 @@
-import {Component, Injector, NgModuleFactory, SystemJsNgModuleLoader, ViewChild, ViewContainerRef} from '@angular/core';
-import {PersonComponent} from './person/person.component';
+import {Compiler, Component, Injector, NgModuleFactory, SystemJsNgModuleLoader, ViewChild, ViewContainerRef} from '@angular/core';
+import {PersonComponent} from './+person/person.component';
+import {environment} from '../environments/environment';
 
 @Component({
   selector: 'app-root',
   template: `
     <h1>Content</h1>
-    <a routerLink="/person">Person</a>
+    <p>
+      <a routerLink="./">Home</a>
+    </p>
+    <p>
+      <a routerLink="/person">Person</a>
+    </p>
     <button (click)="loadModule()">Load module</button>
     <template #container></template>
     <router-outlet></router-outlet>
@@ -21,7 +27,11 @@ export class AppComponent {
 
   loadModule() {
     this.viewRef.clear();
-    this.systemJsLoader.load('./person/person.module#PersonModule')
+
+    const loader = this.getLoader(environment)
+    const modulePath = this.getModulePath(environment)
+
+    loader.load(modulePath)
       .then((moduleFactory: NgModuleFactory<any>) => {
         const moduleRef = moduleFactory.create(this.injector);
         const compFactory = moduleRef
@@ -30,5 +40,22 @@ export class AppComponent {
         this.viewRef.createComponent(compFactory);
       })
       .catch(e => console.error(e));
+  }
+
+  private getLoader(environment: {production: boolean}) {
+    if(!environment.production){
+      return this.systemJsLoader
+    } else {
+      return new SystemJsNgModuleLoader(new Compiler(),
+        {
+          factoryPathPrefix: '',
+          factoryPathSuffix: '-ngfactory'
+        })
+    }
+
+  }
+
+  private getModulePath(environment: {production: boolean}){
+    return environment.production ? './person-person-module' : './+person/person.module#PersonModule'
   }
 }

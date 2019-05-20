@@ -25,11 +25,8 @@
       "ui-components/*": [
         "dist/ui-components/*"
       ],
-      "@angular/cdk/overlay": [
-        "./libraries/ui-components/node_modules/@angular/cdk/overlay"
-      ],
-      "@angular/cdk/portal": [
-        "./libraries/ui-components/node_modules/@angular/cdk/portal"
+      "@angular/cdk": [
+        "./libraries/ui-components/node_modules/@angular/cdk"
       ]
     }
   }

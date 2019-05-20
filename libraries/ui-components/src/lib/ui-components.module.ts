@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { BtnComponent } from './btn/btn.component';
+import {NgModule} from '@angular/core';
+import {BtnComponent} from './btn/btn.component';
 import {OverlayModule} from '@angular/cdk/overlay';
 import {PortalModule} from '@angular/cdk/portal';
 
@@ -11,4 +11,5 @@ import {PortalModule} from '@angular/cdk/portal';
   ],
   exports: [BtnComponent]
 })
-export class UiComponentsModule { }
+export class UiComponentsModule {
+}
