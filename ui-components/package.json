@@ -1,0 +1,30 @@
+{
+  "name": "ui-components",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^7.2.0",
+    "@angular/core": "^7.2.0",
+    "@angular/animations": "^7.2.15",
+    "@angular/material": "^7.3.7",
+    "@angular/cdk": "^7.3.7"
+  },
+  "dependencies": {
+    "tslib": "^1.9.0"
+  },
+  "devDependencies": {
+    "@angular/animations": "^7.2.15",
+    "@angular/material": "^7.3.7",
+    "@angular/cdk": "^7.3.7"
+  },
+  "whitelistedNonPeerDependencies": [],
+  "main": "bundles/ui-components.umd.js",
+  "module": "fesm5/ui-components.js",
+  "es2015": "fesm2015/ui-components.js",
+  "esm5": "esm5/ui-components.js",
+  "esm2015": "esm2015/ui-components.js",
+  "fesm5": "fesm5/ui-components.js",
+  "fesm2015": "fesm2015/ui-components.js",
+  "typings": "ui-components.d.ts",
+  "metadata": "ui-components.metadata.json",
+  "sideEffects": false
+}
