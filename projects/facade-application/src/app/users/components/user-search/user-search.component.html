@@ -2,7 +2,11 @@
   user-search works!
 </p>
 <section class="search-section">
+  <span class="loader" *ngIf="loading">
+    <div class="lds-circle"><div></div></div>
+  </span>
   <input type="text" [formControl]="searchControl">
+  <p class="no-results" *ngIf="noResults">No results found</p>
   <ul class="results">
     <li class="result" *ngFor="let result of results">
       <span class="user-id">{{result.id}}</span>

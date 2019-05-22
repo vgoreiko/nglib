@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class UsersClientService {
@@ -12,7 +13,9 @@ export class UsersClientService {
       params: {
         q: term
       }
-    });
+    }).pipe(
+      map(result => result['items'])
+    );
 
   }
 }

@@ -19,13 +19,11 @@ import {environment} from '../environments/environment';
       <button (click)="loadModule()">Load module</button>
       <template #container></template>
     </section>
-    <router-outlet></router-outlet>
+    <section class="content">
+      <router-outlet></router-outlet>
+    </section>
   `,
-  styles: [`
-    .left-panel{
-      float: left;
-    }
-  `]
+  styleUrls: ['app.component.scss']
 })
 export class AppComponent {
   @ViewChild('container', {read: ViewContainerRef}) viewRef: ViewContainerRef;

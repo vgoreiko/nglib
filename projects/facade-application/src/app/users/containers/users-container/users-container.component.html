@@ -2,5 +2,8 @@
   users-container works!
 </p>
 <section class="user-search-section" [formGroup]="searchFormGroup">
-  <app-user-search [results]="users$ | async" [searchControl]="searchControl"></app-user-search>
+  <app-user-search [results]="users$ | async"
+                   [loading]="loading$ | async"
+                   [noResults]="noResults$ | async"
+                   [searchControl]="searchControl"></app-user-search>
 </section>

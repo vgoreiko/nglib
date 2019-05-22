@@ -1,7 +1,5 @@
-import {Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter, AfterViewInit, OnDestroy} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {map, takeUntil} from 'rxjs/operators';
-import {BehaviorSubject} from 'rxjs';
+import {Component, OnInit, ChangeDetectionStrategy, Input} from '@angular/core';
+import {FormControl} from '@angular/forms';
 import {User} from '../../models';
 
 @Component({
@@ -13,6 +11,8 @@ import {User} from '../../models';
 export class UserSearchComponent implements OnInit {
   @Input() results: User[]
   @Input() searchControl: FormControl
+  @Input() loading = false
+  @Input() noResults = false
   constructor() {
   }
 
