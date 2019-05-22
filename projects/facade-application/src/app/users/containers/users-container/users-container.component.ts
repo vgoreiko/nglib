@@ -2,6 +2,8 @@ import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {UsersClientService} from '../../services';
 import {User} from '../../models';
 import {Observable} from 'rxjs';
+import {debounce, debounceTime, map, switchMap} from 'rxjs/operators';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-users-container',
@@ -10,19 +12,28 @@ import {Observable} from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsersContainerComponent implements OnInit {
-  term = '';
   users: User[] = [];
+  searchFormGroup: FormGroup;
 
   users$: Observable<User[]>;
   term$: Observable<string>;
 
-  constructor(private usersClient: UsersClientService, ) {
+  constructor(private usersClient: UsersClientService, private formBuilder: FormBuilder) {
+    this.initFormGroup();
   }
 
   ngOnInit() {
+    this.term$ = this.searchControl.valueChanges.pipe(map(val => val), debounceTime(100));
+    this.users$ = this.term$.pipe(switchMap(term => this.usersClient.fetchUsersByTerm(term)), map(result => result['items']));
   }
 
-  fetchUsersByTerm(term: string) {
-    return this.usersClient.fetchUsersByTerm(term).subscribe(response => this.users = response['items']);
+  get searchControl() {
+    return this.searchFormGroup.get('searchControl');
+  }
+
+  private initFormGroup() {
+    this.searchFormGroup = this.formBuilder.group({
+      searchControl: []
+    });
   }
 }

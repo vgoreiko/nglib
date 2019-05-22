@@ -10,38 +10,13 @@ import {User} from '../../models';
   styleUrls: ['./user-search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UserSearchComponent implements OnInit, OnDestroy {
-  @Input() term = '';
+export class UserSearchComponent implements OnInit {
   @Input() results: User[]
-  @Output() termChange = new EventEmitter<string>();
-  searchFormGroup: FormGroup
-  constructor(private formBuilder: FormBuilder) {
-    this.initFormGroup()
+  @Input() searchControl: FormControl
+  constructor() {
   }
 
   ngOnInit() {
-    this.searchControl.patchValue(this.term)
-    this.getTextChangesSubscription()
   }
 
-  ngOnDestroy(): void {
-  }
-
-  get searchControl() {
-    return this.searchFormGroup.get('searchControl')
-  }
-
-  private initFormGroup() {
-    this.searchFormGroup = this.formBuilder.group({
-      searchControl: []
-    })
-  }
-
-  private getTextChangesSubscription() {
-    return this.searchControl.valueChanges.pipe(
-      map(val => val)
-    ).subscribe((value) => {
-      this.termChange.emit(value)
-    })
-  }
 }
