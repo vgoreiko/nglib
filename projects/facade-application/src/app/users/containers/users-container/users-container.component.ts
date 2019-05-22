@@ -1,14 +1,17 @@
-import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {UsersClientService} from '../../services';
 import {User} from '../../models';
 import {BehaviorSubject, combineLatest, Observable, throwError} from 'rxjs';
 import {catchError, debounceTime, filter, map, share, switchMap, tap} from 'rxjs/operators';
 import {FormBuilder, FormGroup} from '@angular/forms';
 
+const minLetters = 3
+
 @Component({
   selector: 'app-users-container',
   templateUrl: './users-container.component.html',
   styleUrls: ['./users-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsersContainerComponent implements OnInit {
   searchFormGroup: FormGroup;
@@ -24,8 +27,8 @@ export class UsersContainerComponent implements OnInit {
 
   ngOnInit() {
     this.term$ = this.searchControl.valueChanges.pipe(
+      filter(val => !(val.length < minLetters)),
       debounceTime(1000),
-      filter(val => val.length),
       map(val => val)
     );
     this.users$ = this.term$.pipe(
@@ -43,10 +46,11 @@ export class UsersContainerComponent implements OnInit {
     );
     this.noResults$ = combineLatest(
       this.term$,
-      this.users$
+      this.users$,
+      this.loading$
     ).pipe(
-      map(([term, users]) => {
-        return term && !users.length
+      map(([term, users, loading]) => {
+        return term && !users.length && !loading
       })
     )
   }
