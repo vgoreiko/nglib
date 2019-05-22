@@ -5,18 +5,27 @@ import {environment} from '../environments/environment';
 @Component({
   selector: 'app-root',
   template: `
-    <h1>Content</h1>
-    <p>
-      <a routerLink="/">Home</a>
-    </p>
-    <p>
-      <a routerLink="/person">Person</a>
-    </p>
-    <button (click)="loadModule()">Load module</button>
-    <template #container></template>
+    <section class="left-panel">
+      <h1>Content</h1>
+      <p>
+        <a routerLink="/">Home</a>
+      </p>
+      <p>
+        <a routerLink="/users">Users</a>
+      </p>
+      <p>
+        <a routerLink="/person">Person</a>
+      </p>
+      <button (click)="loadModule()">Load module</button>
+      <template #container></template>
+    </section>
     <router-outlet></router-outlet>
   `,
-  styles: []
+  styles: [`
+    .left-panel{
+      float: left;
+    }
+  `]
 })
 export class AppComponent {
   @ViewChild('container', {read: ViewContainerRef}) viewRef: ViewContainerRef;
@@ -42,8 +51,8 @@ export class AppComponent {
       .catch(e => console.error(e));
   }
 
-  private getLoader(environment: {production: boolean}) {
-    if(!environment.production){
+  private getLoader(env: {production: boolean}) {
+    if (!env.production) {
       return this.systemJsLoader
     } else {
       return new SystemJsNgModuleLoader(new Compiler(),
@@ -55,8 +64,8 @@ export class AppComponent {
 
   }
 
-  private getModulePath(environment: {production: boolean}){
-    return environment.production
+  private getModulePath(env: {production: boolean}) {
+    return env.production
       ? './+person/person.module.ngfactory#PersonModule'
       : './+person/person.module#PersonModule'
   }

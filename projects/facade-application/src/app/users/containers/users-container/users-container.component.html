@@ -1,0 +1,6 @@
+<p>
+  users-container works!
+</p>
+<section class="user-search-section">
+  <app-user-search [term]="term" [results]="users" (termChange)="fetchUsersByTerm($event)"></app-user-search>
+</section>

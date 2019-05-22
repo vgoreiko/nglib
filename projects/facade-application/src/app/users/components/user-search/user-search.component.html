@@ -1,0 +1,13 @@
+<p>
+  user-search works!
+</p>
+<section class="search-section" [formGroup]="searchFormGroup">
+  <input type="text" formControlName="searchControl">
+  <ul class="results">
+    <li class="result" *ngFor="let result of results">
+      <span class="user-id">{{result.id}}</span>
+      <span class="user-login">{{result.login}}</span>
+    </li>
+  </ul>
+</section>
+
