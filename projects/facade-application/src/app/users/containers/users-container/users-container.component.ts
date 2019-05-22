@@ -2,7 +2,7 @@ import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {UsersClientService} from '../../services';
 import {User} from '../../models';
 import {Observable} from 'rxjs';
-import {debounce, debounceTime, map, switchMap} from 'rxjs/operators';
+import {debounce, debounceTime, filter, map, switchMap, tap} from 'rxjs/operators';
 import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
@@ -23,7 +23,11 @@ export class UsersContainerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.term$ = this.searchControl.valueChanges.pipe(map(val => val), debounceTime(100));
+    this.term$ = this.searchControl.valueChanges.pipe(
+      debounceTime(1000),
+      filter(val => val.length),
+      map(val => val),
+      );
     this.users$ = this.term$.pipe(switchMap(term => this.usersClient.fetchUsersByTerm(term)), map(result => result['items']));
   }
 
