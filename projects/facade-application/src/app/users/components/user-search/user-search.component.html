@@ -4,7 +4,7 @@
     <span class="loader" *ngIf="loading">
     <div class="lds-circle"><div></div></div>
   </span>
-    <input type="text" [formControl]="searchControl" placeholder="">
+    <input type="text" [formControl]="searchControl" placeholder="{{placeholder}}">
   </div>
 
   <ng-content select="[no-results-template]" *ngIf="noResults"></ng-content>

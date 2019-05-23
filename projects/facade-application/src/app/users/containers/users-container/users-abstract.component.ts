@@ -2,7 +2,7 @@ import {OnInit} from '@angular/core';
 import {User} from '../../models';
 import {BehaviorSubject, combineLatest, Observable, throwError} from 'rxjs';
 import {catchError, debounceTime, filter, map, share, switchMap, tap} from 'rxjs/operators';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {from} from 'rxjs/internal/observable/from';
 
 export interface ControlSettings {
@@ -17,8 +17,6 @@ const defaultControlSettings = {
 
 
 export class UsersAbstractContainerComponent implements OnInit {
-  formBuilder: FormBuilder
-  searchFormGroup: FormGroup;
   controlSettings: ControlSettings = defaultControlSettings
   results$: Observable<User[]>;
   term$: Observable<string>;
@@ -28,7 +26,6 @@ export class UsersAbstractContainerComponent implements OnInit {
   noResults$: Observable<boolean>
 
   ngOnInit() {
-    this.initFormGroup();
     this.term$ = this.initTermStream()
     this.results$ = this.initItemsStream()
     this.noResults$ = this.initNoResultsStream()
@@ -67,20 +64,14 @@ export class UsersAbstractContainerComponent implements OnInit {
     )
   }
 
-  private initFormGroup() {
-    this.searchFormGroup = this.formBuilder.group({
-      searchControl: []
-    });
-  }
-
   private initNoResultsStream() {
     return this.noResults$ = combineLatest(
       this.term$,
       this.results$,
       this.loading$
     ).pipe(
-      map(([term, users, loading]) => {
-        return term && !users.length && !loading
+      map(([term, items, loading]) => {
+        return term && !items.length && !loading
       })
     )
   }
@@ -89,7 +80,7 @@ export class UsersAbstractContainerComponent implements OnInit {
     return from([])
   }
 
-  get searchControl() {
+  protected get searchControl(): AbstractControl {
     return new FormControl()
   }
 }
