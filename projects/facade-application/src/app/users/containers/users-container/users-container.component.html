@@ -2,7 +2,7 @@
   users-container works!
 </p>
 <section class="user-search-section" [formGroup]="searchFormGroup">
-  <app-user-search [results]="users$ | async"
+  <app-user-search [results]="results$ | async"
                    [loading]="loading$ | async"
                    [noResults]="noResults$ | async"
                    [searchControl]="searchControl">
@@ -11,7 +11,7 @@
 
     <section results-template>
       <ul class="results">
-        <li class="result" *ngFor="let result of (users$ | async)">
+        <li class="result" *ngFor="let result of (results$ | async)">
           <span class="user-id">{{result.id}}</span>
           <span class="user-login">{{result.login}}</span>
         </li>
