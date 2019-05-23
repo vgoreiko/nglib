@@ -5,5 +5,21 @@
   <app-user-search [results]="users$ | async"
                    [loading]="loading$ | async"
                    [noResults]="noResults$ | async"
-                   [searchControl]="searchControl"></app-user-search>
+                   [searchControl]="searchControl">
+
+    <p class="no-results" no-results-template>No results found</p>
+
+    <section results-template>
+      <ul class="results">
+        <li class="result" *ngFor="let result of (users$ | async)">
+          <span class="user-id">{{result.id}}</span>
+          <span class="user-login">{{result.login}}</span>
+        </li>
+      </ul>
+    </section>
+
+  </app-user-search>
 </section>
+
+
+

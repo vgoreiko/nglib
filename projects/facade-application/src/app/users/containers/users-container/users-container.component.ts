@@ -5,7 +5,11 @@ import {BehaviorSubject, combineLatest, Observable, throwError} from 'rxjs';
 import {catchError, debounceTime, filter, map, share, switchMap, tap} from 'rxjs/operators';
 import {FormBuilder, FormGroup} from '@angular/forms';
 
-const minLetters = 3
+const controlSettings = {
+  minLetters: 3,
+  debounceTime: 1000
+}
+
 
 @Component({
   selector: 'app-users-container',
@@ -27,8 +31,8 @@ export class UsersContainerComponent implements OnInit {
 
   ngOnInit() {
     this.term$ = this.searchControl.valueChanges.pipe(
-      filter(val => !(val.length < minLetters)),
-      debounceTime(1000),
+      filter(val => !(val.length < controlSettings.minLetters)),
+      debounceTime(controlSettings.debounceTime),
       map(val => val)
     );
     this.users$ = this.term$.pipe(

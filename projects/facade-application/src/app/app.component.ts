@@ -4,25 +4,7 @@ import {environment} from '../environments/environment';
 
 @Component({
   selector: 'app-root',
-  template: `
-    <section class="left-panel">
-      <h1>Content</h1>
-      <p>
-        <a routerLink="/">Home</a>
-      </p>
-      <p>
-        <a routerLink="/users">Users</a>
-      </p>
-      <p>
-        <a routerLink="/person">Person</a>
-      </p>
-      <button (click)="loadModule()">Load module</button>
-      <template #container></template>
-    </section>
-    <section class="content">
-      <router-outlet></router-outlet>
-    </section>
-  `,
+  templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
