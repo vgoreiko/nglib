@@ -1,8 +1,7 @@
 import {OnInit} from '@angular/core';
-import {User} from '../../models';
 import {BehaviorSubject, combineLatest, Observable, throwError} from 'rxjs';
 import {catchError, debounceTime, filter, map, share, switchMap, tap} from 'rxjs/operators';
-import {AbstractControl, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {AbstractControl, FormControl} from '@angular/forms';
 import {from} from 'rxjs/internal/observable/from';
 
 export interface ControlSettings {
@@ -18,7 +17,7 @@ const defaultControlSettings = {
 
 export class UsersAbstractContainerComponent implements OnInit {
   controlSettings: ControlSettings = defaultControlSettings
-  results$: Observable<User[]>;
+  results$: Observable<any[]>;
   term$: Observable<string>;
   // tslint:disable-next-line:variable-name
   _loading$ = new BehaviorSubject(false)
