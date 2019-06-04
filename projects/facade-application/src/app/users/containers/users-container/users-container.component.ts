@@ -10,7 +10,18 @@ const controlSettings = {
   debounceTime: 1000
 }
 
+export function asObservable(): PropertyDecorator {
+  return (target: any, propertyKey: string) => {
+    const newPropertyKey = `${propertyKey}`.substring(1)
+    Object.defineProperty(target, newPropertyKey, {
+      get() {
+        return this[`${propertyKey}`].asObservable();
+      }
+    });
+  };
+}
 
+export interface UsersContainerComponent {loading$: Observable<boolean>}
 @Component({
   selector: 'app-users-container',
   templateUrl: './users-container.component.html',
@@ -21,9 +32,9 @@ export class UsersContainerComponent implements OnInit {
   searchFormGroup: FormGroup;
   users$: Observable<User[]>;
   term$: Observable<string>;
-  // tslint:disable-next-line:variable-name
+  @asObservable()
+    // tslint:disable-next-line:variable-name
   _loading$ = new BehaviorSubject(false)
-  loading$ = this._loading$.asObservable()
   noResults$: Observable<boolean>
   constructor(private usersClient: UsersClientService, private formBuilder: FormBuilder) {
     this.initFormGroup();
