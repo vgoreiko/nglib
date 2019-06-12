@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {GithubClientService} from '../github-client.service';
 import {Observable} from 'rxjs';
+import {catchError} from 'rxjs/operators';
 
 @Component({
   selector: 'app-retry-view',
@@ -12,6 +13,11 @@ export class RetryViewComponent implements OnInit {
   constructor(private githubClient: GithubClientService) { }
 
   ngOnInit() {
-    this.users$ = this.githubClient.getUsers()
+    this.users$ = this.githubClient.getUsers().pipe(
+      catchError((e) => {
+        // here goes custom handler if needed
+        return e
+      })
+    )
   }
 }

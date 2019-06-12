@@ -1,6 +1,7 @@
-import {catchError, delay, retryWhen, scan} from 'rxjs/operators';
+import {catchError, delay, delayWhen, retryWhen, scan} from 'rxjs/operators';
 import {RetryDecoratorOptions} from './models/retry-decorator-options.model';
 import {RetryOptions} from './models/retry-options.model';
+import {timer} from 'rxjs';
 
 export function retry(options?: RetryDecoratorOptions) {
   return function (
@@ -16,13 +17,16 @@ export function retry(options?: RetryDecoratorOptions) {
       const result = method.apply(this, args).pipe(
         retryWhen((errors) =>
           errors.pipe(
+            delayWhen((error) => {
+              // here get custom timer value from error
+              return timer(retryOptions.delayTime)
+            }),
             scan((errorCount, err) => {
               if (errorCount >= retryOptions.retryCount) {
                 throw err
               }
               return errorCount + 1;
             }, 0),
-            delay(retryOptions.delayTime)
           )
         ),
         catchError( (e) => {
