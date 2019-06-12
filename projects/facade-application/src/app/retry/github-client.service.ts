@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { retry } from './retry.decorator';
-import {of, throwError} from 'rxjs';
+import { throwError} from 'rxjs';
+import { httpRetry } from './retry.operator';
 
 @Injectable({
   providedIn: 'root'
@@ -16,5 +17,11 @@ export class GithubClientService {
   }})
   getUsers(){
     return this.http.get(`${this.url}/usersS?t=someBla`)
+  }
+
+  getPersons(){
+    return this.http.get(`${this.url}/persons?t=someBla`).pipe(
+      httpRetry()
+    )
   }
 }
