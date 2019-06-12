@@ -14,5 +14,4 @@ export class RetryViewComponent implements OnInit {
   ngOnInit() {
     this.users$ = this.githubClient.getUsers()
   }
-
 }

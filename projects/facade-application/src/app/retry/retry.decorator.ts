@@ -26,7 +26,6 @@ export function retry(options?: RetryDecoratorOptions) {
           )
         ),
         catchError( (e) => {
-          console.log(e)
           return retryOptions.fallBack(e)
         })
       );
