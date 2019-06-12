@@ -1,0 +1,10 @@
+<p>
+  retry-view works!
+</p>
+<section class="users">
+  <ul>
+    <li *ngFor="let user of users$ | async">
+      {{user.login}}
+    </li>
+  </ul>
+</section>
