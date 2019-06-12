@@ -1,12 +1,15 @@
 import {catchError, delay, retryWhen, scan} from 'rxjs/operators';
-import {of, throwError} from 'rxjs';
+import {RetryDecoratorOptions} from './models/retry-decorator-options.model';
+import {RetryOptions} from './models/retry-options.model';
 
-export function retry(retryCount: number = 2, fallBack?: any) {
+export function retry(options?: RetryDecoratorOptions) {
   return function (
     target: Object,
     propertyName: string,
     propertyDescriptor: PropertyDescriptor): PropertyDescriptor {
     const method = propertyDescriptor.value;
+
+    const retryOptions = new RetryOptions(options)
 
     propertyDescriptor.value = function (...args: any[]) {
 
@@ -14,18 +17,17 @@ export function retry(retryCount: number = 2, fallBack?: any) {
         retryWhen((errors) =>
           errors.pipe(
             scan((errorCount, err) => {
-              console.log('Try ' + (errorCount + 1));
-              if (errorCount >= retryCount) {
+              if (errorCount >= retryOptions.retryCount) {
                 throw err
               }
               return errorCount + 1;
             }, 0),
-            delay(1000)
+            delay(retryOptions.delayTime)
           )
         ),
         catchError( (e) => {
-          console.log('catchError')
-          return fallBack ? of(fallBack) : throwError(e)
+          console.log(e)
+          return retryOptions.fallBack(e)
         })
       );
       return result;
